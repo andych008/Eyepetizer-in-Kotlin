@@ -14,7 +14,7 @@ import io.reactivex.Observable
 /**
  * Created by lvruheng on 2017/7/7.
  */
-class HotPresenter(context: Context,view: HotContract.View) : HotContract.Presenter{
+class HotPresenter(context: Context?,view: HotContract.View) : HotContract.Presenter{
 
 
     var mContext : Context? = null

@@ -2,7 +2,7 @@ package com.tt.lvruheng.eyepetizer.utils
 
 import android.R.id.edit
 import android.content.Context
-import android.support.annotation.NonNull
+import androidx.annotation.NonNull
 import java.util.Collections.emptySet
 import android.content.Context.MODE_PRIVATE
 import android.content.SharedPreferences

@@ -4,24 +4,23 @@ import android.os.AsyncTask
 import android.os.Bundle
 import android.os.Handler
 import android.os.Message
-import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.LinearLayoutManager
-import android.util.Log
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
+import com.dylanc.viewbinding.inflate
 import com.gyf.barlibrary.ImmersionBar
 import com.tt.lvruheng.eyepetizer.R
-import com.tt.lvruheng.eyepetizer.adapter.FeedAdapter
 import com.tt.lvruheng.eyepetizer.adapter.WatchAdapter
-import com.tt.lvruheng.eyepetizer.mvp.model.bean.HotBean
+import com.tt.lvruheng.eyepetizer.databinding.ActivityWatchBinding
 import com.tt.lvruheng.eyepetizer.mvp.model.bean.VideoBean
 import com.tt.lvruheng.eyepetizer.utils.ObjectSaveUtils
 import com.tt.lvruheng.eyepetizer.utils.SPUtils
-import kotlinx.android.synthetic.main.activity_watch.*
 
 /**
  * Created by lvruheng on 2017/7/11.
  */
 class WatchActivity : AppCompatActivity() {
+    private val binding: ActivityWatchBinding by inflate()
+
     var mList = ArrayList<VideoBean>()
     lateinit var mAdapter: WatchAdapter
     var mHandler: Handler = object : Handler() {
@@ -29,9 +28,9 @@ class WatchActivity : AppCompatActivity() {
             super.handleMessage(msg)
             var list = msg?.data?.getParcelableArrayList<VideoBean>("beans")
             if(list?.size?.compareTo(0) == 0){
-                tv_hint.visibility = View.VISIBLE
+                binding.tvHint.visibility = View.VISIBLE
             }else{
-                tv_hint.visibility = View.GONE
+                binding.tvHint.visibility = View.GONE
                 if(mList.size>0){
                     mList.clear()
                 }
@@ -48,17 +47,17 @@ class WatchActivity : AppCompatActivity() {
         setContentView(R.layout.activity_watch)
         setToolbar()
         DataAsyncTask(mHandler,this).execute()
-        recyclerView.layoutManager = LinearLayoutManager(this)
+        binding.recyclerView.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(this)
         mAdapter = WatchAdapter(this, mList)
-        recyclerView.adapter = mAdapter
+        binding.recyclerView.adapter = mAdapter
     }
 
     private fun setToolbar() {
-        setSupportActionBar(toolbar)
+        setSupportActionBar(binding.toolbar)
         var bar = supportActionBar
         bar?.title = "观看记录"
         bar?.setDisplayHomeAsUpEnabled(true)
-        toolbar.setNavigationOnClickListener {
+        binding.toolbar.setNavigationOnClickListener {
             onBackPressed()
         }
     }

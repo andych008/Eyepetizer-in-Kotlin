@@ -2,23 +2,23 @@ package com.tt.lvruheng.eyepetizer.ui
 
 import android.graphics.Typeface
 import android.os.Bundle
-import android.os.PersistableBundle
-import android.support.v7.app.AppCompatActivity
 import android.view.WindowManager
 import android.view.animation.AlphaAnimation
 import android.view.animation.Animation
 import android.view.animation.AnimationSet
 import android.view.animation.ScaleAnimation
-import android.widget.ImageView
-import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
+import com.dylanc.viewbinding.inflate
 import com.tt.lvruheng.eyepetizer.R
+import com.tt.lvruheng.eyepetizer.databinding.ActivitySplashBinding
 import com.tt.lvruheng.eyepetizer.utils.newIntent
-import kotlinx.android.synthetic.main.activity_splash.*
 
 /**
  * Created by lvruheng on 2017/7/2.
  */
 class SplashActivity : AppCompatActivity() {
+    private val binding: ActivitySplashBinding by inflate()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         //设置全屏
@@ -39,7 +39,7 @@ class SplashActivity : AppCompatActivity() {
         animationSet.addAnimation(alphaAnimation)
         animationSet.addAnimation(scaleAnimation)
         animationSet.duration = 1000
-        iv_icon_splash.startAnimation(animationSet)
+        binding.ivIconSplash.startAnimation(animationSet)
         animationSet.setAnimationListener(object : Animation.AnimationListener{
             override fun onAnimationRepeat(animation: Animation?) {
 
@@ -58,8 +58,8 @@ class SplashActivity : AppCompatActivity() {
 
     private fun initView() {
         val font :Typeface = Typeface.createFromAsset(this.assets,"fonts/Lobster-1.4.otf")
-        tv_name_english.typeface = font
-        tv_english_intro.typeface = font
+        binding.tvNameEnglish.typeface = font
+        binding.tvEnglishIntro.typeface = font
     }
 
 

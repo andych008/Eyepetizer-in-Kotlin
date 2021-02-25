@@ -16,7 +16,7 @@ import io.reactivex.Observable
 /**
  * Created by lvruheng on 2017/7/7.
  */
-class ResultPresenter(context: Context, view: ResultContract.View) : ResultContract.Presenter {
+class ResultPresenter(context: Context?, view: ResultContract.View) : ResultContract.Presenter {
 
 
     var mContext: Context? = null

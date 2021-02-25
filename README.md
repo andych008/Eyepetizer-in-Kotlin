@@ -37,8 +37,8 @@ Eyepetizer-in-Kotlin适合初学者作为学习kotlin语言的一个项目，可
 ```
 import kotlinx.android.synthetic.main.activity_watch.*
 .........
-tv_hint.visibility = View.VISIBLE
-tv_hint.text = "告别findViewById"
+binding.tvHint.visibility = View.VISIBLE
+binding.tvHint.text = "告别findViewById"
 ```
 ##### (2) 延迟加载
 延迟加载有几个好处。首先由于加载时机推迟到了变量被访问时，因此它可以提高应用的启动速度。其次，这样的延迟加载也有更高的内存效率。

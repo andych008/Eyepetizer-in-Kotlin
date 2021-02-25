@@ -15,7 +15,7 @@ import org.w3c.dom.Text
 /**
  * Created by lvruheng on 2017/7/6.
  */
-class FindAdapter(context: Context,list: MutableList<FindBean>?) : BaseAdapter(){
+class FindAdapter(context: Context?,list: MutableList<FindBean>?) : BaseAdapter(){
     var mContext : Context? = null
     var mList : MutableList<FindBean>? = null
     var mInflater : LayoutInflater? = null

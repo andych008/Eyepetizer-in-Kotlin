@@ -4,7 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Typeface
 import android.os.Parcelable
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView
 import android.util.Log
 import android.util.Log.println
 import android.view.LayoutInflater
@@ -26,10 +26,10 @@ import javax.xml.datatype.Duration
 /**
  * Created by lvruheng on 2017/7/5.
  */
-class HomeAdatper(context: Context,list: MutableList<HomeBean.IssueListBean.ItemListBean>?) : RecyclerView.Adapter<HomeAdatper.HomeViewHolder>() {
+class HomeAdatper(context: Context?,list: MutableList<HomeBean.IssueListBean.ItemListBean>?) : RecyclerView.Adapter<HomeAdatper.HomeViewHolder>() {
     var context : Context? = null;
     var list : MutableList<HomeBean.IssueListBean.ItemListBean>? = null
-    var inflater : LayoutInflater? = null
+    var inflater : LayoutInflater
     init {
         this.context = context
         this.list = list
@@ -39,11 +39,11 @@ class HomeAdatper(context: Context,list: MutableList<HomeBean.IssueListBean.Item
        return list?.size ?:0
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): HomeViewHolder {
-        return HomeViewHolder(inflater?.inflate(R.layout.item_home,parent,false), context!!)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HomeViewHolder {
+        return HomeViewHolder(inflater.inflate(R.layout.item_home,parent,false), context!!)
     }
 
-    override fun onBindViewHolder(holder: HomeViewHolder?, position: Int) {
+    override fun onBindViewHolder(holder: HomeViewHolder, position: Int) {
        var bean = list?.get(position)
         var title = bean?.data?.title
         var category = bean?.data?.category
@@ -102,7 +102,7 @@ class HomeAdatper(context: Context,list: MutableList<HomeBean.IssueListBean.Item
     }
 
 
-    class HomeViewHolder(itemView: View?,context: Context) : RecyclerView.ViewHolder(itemView) {
+    class HomeViewHolder(itemView: View,context: Context) : RecyclerView.ViewHolder(itemView) {
         var tv_detail : TextView?= null
         var tv_title : TextView ? = null
         var tv_time : TextView ? = null

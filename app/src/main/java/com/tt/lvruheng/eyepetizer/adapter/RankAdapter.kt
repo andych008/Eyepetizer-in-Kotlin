@@ -4,7 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Typeface
 import android.os.Parcelable
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -21,10 +21,10 @@ import com.tt.lvruheng.eyepetizer.utils.SPUtils
 /**
  * Created by lvruheng on 2017/7/7.
  */
-class RankAdapter(context: Context, list: ArrayList<HotBean.ItemListBean.DataBean>) : RecyclerView.Adapter<RankAdapter.RankViewHolder>() {
+class RankAdapter(context: Context?, list: ArrayList<HotBean.ItemListBean.DataBean>) : RecyclerView.Adapter<RankAdapter.RankViewHolder>() {
     var context: Context? = null;
     var list: ArrayList<HotBean.ItemListBean.DataBean>? = null
-    var inflater: LayoutInflater? = null
+    var inflater: LayoutInflater
 
     init {
         this.context = context
@@ -32,15 +32,15 @@ class RankAdapter(context: Context, list: ArrayList<HotBean.ItemListBean.DataBea
         this.inflater = LayoutInflater.from(context)
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): RankViewHolder {
-        return RankViewHolder(inflater?.inflate(R.layout.item_rank, parent, false), context!!)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RankViewHolder {
+        return RankViewHolder(inflater.inflate(R.layout.item_rank, parent, false), context!!)
     }
 
     override fun getItemCount(): Int {
         return list?.size ?: 0
     }
 
-    override fun onBindViewHolder(holder: RankViewHolder?, position: Int) {
+    override fun onBindViewHolder(holder: RankViewHolder, position: Int) {
         var photoUrl : String? = list?.get(position)?.cover?.feed
         photoUrl?.let { ImageLoadUtils.display(context!!,holder?.iv_photo, it) }
         var title : String? = list?.get(position)?.title
@@ -91,7 +91,7 @@ class RankAdapter(context: Context, list: ArrayList<HotBean.ItemListBean.DataBea
     }
 
 
-    class RankViewHolder(itemView: View?, context: Context) : RecyclerView.ViewHolder(itemView) {
+    class RankViewHolder(itemView: View, context: Context) : RecyclerView.ViewHolder(itemView) {
         var iv_photo: ImageView = itemView?.findViewById(R.id.iv_photo) as ImageView
         var tv_title: TextView = itemView?.findViewById(R.id.tv_title) as TextView
         var tv_time: TextView = itemView?.findViewById(R.id.tv_time) as TextView

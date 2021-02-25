@@ -1,24 +1,23 @@
 package com.tt.lvruheng.eyepetizer.ui
 
 import android.os.Bundle
-import android.support.v4.widget.SwipeRefreshLayout
-import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
-import android.util.Log
+import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.RecyclerView
+import com.dylanc.viewbinding.inflate
 import com.gyf.barlibrary.ImmersionBar
 import com.tt.lvruheng.eyepetizer.R
 import com.tt.lvruheng.eyepetizer.adapter.FeedAdapter
+import com.tt.lvruheng.eyepetizer.databinding.ActivityResultBinding
 import com.tt.lvruheng.eyepetizer.mvp.contract.ResultContract
 import com.tt.lvruheng.eyepetizer.mvp.model.bean.HotBean
 import com.tt.lvruheng.eyepetizer.mvp.presenter.ResultPresenter
-import kotlinx.android.synthetic.main.activity_find_detail.*
-import kotlin.collections.ArrayList
 
 /**
  * Created by lvruheng on 2017/7/11.
  */
-class ResultActivity : AppCompatActivity(), ResultContract.View, SwipeRefreshLayout.OnRefreshListener {
+class ResultActivity : AppCompatActivity(), ResultContract.View, androidx.swiperefreshlayout.widget.SwipeRefreshLayout.OnRefreshListener {
+    private val binding: ActivityResultBinding by inflate()
+
     lateinit var keyWord: String
     lateinit var mPresenter: ResultPresenter
     lateinit var mAdapter: FeedAdapter
@@ -33,14 +32,14 @@ class ResultActivity : AppCompatActivity(), ResultContract.View, SwipeRefreshLay
         mPresenter = ResultPresenter(this, this)
         mPresenter.requestData(keyWord, start)
         setToolbar()
-        recyclerView.layoutManager = LinearLayoutManager(this)
+        binding.recyclerView.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(this)
         mAdapter = FeedAdapter(this, mList)
-        recyclerView.adapter = mAdapter
-        refreshLayout.setOnRefreshListener(this)
-        recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-            override fun onScrollStateChanged(recyclerView: RecyclerView?, newState: Int) {
+        binding.recyclerView.adapter = mAdapter
+        binding.refreshLayout.setOnRefreshListener(this)
+        binding.recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
-                var layoutManager: LinearLayoutManager = recyclerView?.layoutManager as LinearLayoutManager
+                var layoutManager: androidx.recyclerview.widget.LinearLayoutManager = recyclerView?.layoutManager as androidx.recyclerview.widget.LinearLayoutManager
                 var lastPositon = layoutManager.findLastVisibleItemPosition()
                 if (newState == RecyclerView.SCROLL_STATE_IDLE && lastPositon == mList.size - 1) {
                     start = start.plus(10)
@@ -51,11 +50,11 @@ class ResultActivity : AppCompatActivity(), ResultContract.View, SwipeRefreshLay
     }
 
     private fun setToolbar() {
-        setSupportActionBar(toolbar)
+        setSupportActionBar(binding.toolbar)
         var bar = supportActionBar
         bar?.title = "'$keyWord' 相关"
         bar?.setDisplayHomeAsUpEnabled(true)
-        toolbar.setNavigationOnClickListener {
+        binding.toolbar.setNavigationOnClickListener {
             onBackPressed()
         }
     }
@@ -63,7 +62,7 @@ class ResultActivity : AppCompatActivity(), ResultContract.View, SwipeRefreshLay
     override fun setData(bean: HotBean) {
         if (mIsRefresh) {
             mIsRefresh = false
-            refreshLayout.isRefreshing = false
+            binding.refreshLayout.isRefreshing = false
             if (mList.size > 0) {
                 mList.clear()
             }

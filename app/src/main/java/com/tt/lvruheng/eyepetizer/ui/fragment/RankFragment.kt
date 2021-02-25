@@ -1,18 +1,18 @@
 package com.tt.lvruheng.eyepetizer.ui.fragment
 
-import android.support.v7.widget.LinearLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import android.util.Log
 import com.tt.lvruheng.eyepetizer.R
 import com.tt.lvruheng.eyepetizer.adapter.RankAdapter
+import com.tt.lvruheng.eyepetizer.databinding.RankFragmentBinding
 import com.tt.lvruheng.eyepetizer.mvp.contract.HotContract
 import com.tt.lvruheng.eyepetizer.mvp.model.bean.HotBean
 import com.tt.lvruheng.eyepetizer.mvp.presenter.HotPresenter
-import kotlinx.android.synthetic.main.home_fragment.*
 
 /**
  * Created by lvruheng on 2017/7/6.
  */
-class RankFragment : BaseFragment(), HotContract.View {
+class RankFragment : BaseFragment<RankFragmentBinding>(), HotContract.View {
     lateinit var mPresenter: HotPresenter
     lateinit var mStrategy: String
     lateinit var mAdapter: RankAdapter
@@ -22,11 +22,12 @@ class RankFragment : BaseFragment(), HotContract.View {
     }
 
     override fun initView() {
-        recyclerView.layoutManager = LinearLayoutManager(context)
+        binding.recyclerView.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(context)
         mAdapter = RankAdapter(context, mList)
-        recyclerView.adapter = mAdapter
+        binding.recyclerView.adapter = mAdapter
+
         if (arguments != null) {
-            mStrategy = arguments.getString("strategy")
+            mStrategy = arguments!!.getString("strategy")
             mPresenter = HotPresenter(context, this)
             mPresenter.requestData(mStrategy)
         }

@@ -1,15 +1,18 @@
 package com.tt.lvruheng.eyepetizer.ui
 
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
+import com.dylanc.viewbinding.inflate
 import com.gyf.barlibrary.ImmersionBar
 import com.tt.lvruheng.eyepetizer.R
-import kotlinx.android.synthetic.main.activity_advise.*
+import com.tt.lvruheng.eyepetizer.databinding.ActivityAdviseBinding
 
 /**
  * Created by lvruheng on 2017/7/11.
  */
 class AdviseActivity:AppCompatActivity(){
+    private val binding: ActivityAdviseBinding by inflate()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_advise)
@@ -18,11 +21,11 @@ class AdviseActivity:AppCompatActivity(){
     }
 
      fun settoolbar(){
-         setSupportActionBar(toolbar)
+         setSupportActionBar(binding.toolbar)
          var bar = supportActionBar
          bar?.title = "意见反馈"
          bar?.setDisplayHomeAsUpEnabled(true)
-         toolbar.setNavigationOnClickListener {
+         binding.toolbar.setNavigationOnClickListener {
              onBackPressed()
          }
      }

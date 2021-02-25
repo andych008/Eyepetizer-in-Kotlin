@@ -5,7 +5,7 @@ import android.content.Intent
 import android.graphics.Typeface
 import android.net.Uri
 import android.os.Parcelable
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -30,7 +30,7 @@ class DownloadAdapter(context: Context, list: ArrayList<VideoBean>) : RecyclerVi
     lateinit var mOnLongLisenter: OnLongClickListener
     var context: Context? = null;
     var list: ArrayList<VideoBean>? = null
-    var inflater: LayoutInflater? = null
+    var inflater: LayoutInflater
     var isDownload = false
     var hasLoaded = false
     lateinit var disposable: Disposable
@@ -41,15 +41,15 @@ class DownloadAdapter(context: Context, list: ArrayList<VideoBean>) : RecyclerVi
         this.inflater = LayoutInflater.from(context)
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): DownloadViewHolder {
-        return DownloadViewHolder(inflater?.inflate(R.layout.item_download, parent, false), context!!)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DownloadViewHolder {
+        return DownloadViewHolder(inflater.inflate(R.layout.item_download, parent, false), context!!)
     }
 
     override fun getItemCount(): Int {
         return list?.size ?: 0
     }
 
-    override fun onBindViewHolder(holder: DownloadViewHolder?, position: Int) {
+    override fun onBindViewHolder(holder: DownloadViewHolder, position: Int) {
         var photoUrl: String? = list?.get(position)?.feed
         photoUrl?.let { ImageLoadUtils.display(context!!, holder?.iv_photo, it) }
         var title: String? = list?.get(position)?.title
@@ -146,7 +146,7 @@ class DownloadAdapter(context: Context, list: ArrayList<VideoBean>) : RecyclerVi
         })
     }
 
-    class DownloadViewHolder(itemView: View?, context: Context) : RecyclerView.ViewHolder(itemView) {
+    class DownloadViewHolder(itemView: View, context: Context) : RecyclerView.ViewHolder(itemView) {
         var iv_photo: ImageView = itemView?.findViewById(R.id.iv_photo) as ImageView
         var tv_title: TextView = itemView?.findViewById(R.id.tv_title) as TextView
         var tv_detail: TextView = itemView?.findViewById(R.id.tv_detail) as TextView

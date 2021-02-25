@@ -16,7 +16,7 @@ import io.reactivex.Observable
 /**
  * Created by lvruheng on 2017/7/7.
  */
-class FindDetailPresenter(context: Context, view: FindDetailContract.View) : FindDetailContract.Presenter {
+class FindDetailPresenter(context: Context?, view: FindDetailContract.View) : FindDetailContract.Presenter {
 
 
     var mContext: Context? = null
@@ -34,15 +34,15 @@ class FindDetailPresenter(context: Context, view: FindDetailContract.View) : Fin
 
     }
 
-    override fun requestData(categoryName: String, strategy: String) {
-        val observable: Observable<HotBean>? = mContext?.let { mModel.loadData(mContext!!, categoryName, strategy) }
+    override fun requestData(categoryId: Int, strategy: String) {
+        val observable: Observable<HotBean>? = mContext?.let { mModel.loadData(mContext!!, categoryId, strategy) }
         observable?.applySchedulers()?.subscribe { bean: HotBean ->
             mView?.setData(bean)
         }
     }
 
-    fun requesMoreData(start: Int, categoryName: String, strategy: String) {
-        val observable: Observable<HotBean>? = mContext?.let { mModel.loadMoreData(mContext!!, start, categoryName, strategy) }
+    fun requesMoreData(start: Int, categoryId: Int, strategy: String) {
+        val observable: Observable<HotBean>? = mContext?.let { mModel.loadMoreData(mContext!!, start, categoryId, strategy) }
         observable?.applySchedulers()?.subscribe { bean: HotBean ->
             mView?.setData(bean)
         }

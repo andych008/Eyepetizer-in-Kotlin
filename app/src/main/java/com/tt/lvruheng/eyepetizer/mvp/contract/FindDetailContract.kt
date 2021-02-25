@@ -14,6 +14,6 @@ interface FindDetailContract {
     }
 
     interface Presenter : BasePresenter {
-        fun requestData(categoryName: String, strategy: String)
+        fun requestData(categoryId: Int, strategy: String)
     }
 }

@@ -13,7 +13,7 @@ import io.reactivex.Observable
 /**
  * Created by lvruheng on 2017/7/5.
  */
-class HomePresenter(context: Context,view : HomeContract.View) : HomeContract.Presenter{
+class HomePresenter(context: Context?,view : HomeContract.View) : HomeContract.Presenter{
     var mContext : Context? = null
     var mView : HomeContract.View? = null
     val mModel : HomeModel by lazy {

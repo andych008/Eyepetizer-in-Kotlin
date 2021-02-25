@@ -1,28 +1,44 @@
 package com.tt.lvruheng.eyepetizer.ui.fragment
 
 import android.os.Bundle
-import android.support.v4.app.Fragment
-import android.util.Log
+import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.viewbinding.ViewBinding
+import com.dylanc.viewbinding.inflateBindingWithGeneric
 
 
 /**
  * Created by lvruheng on 2017/7/4.
  */
-abstract class BaseFragment : Fragment() {
+abstract class BaseFragment<VB : ViewBinding> : Fragment() {
     var isFirst : Boolean = false
     var rootView :View? = null
     var isFragmentVisiable :Boolean = false
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        if(rootView==null){
-            rootView = inflater?.inflate(getLayoutResources(),container,false)
-        }
-        return  rootView
+
+
+    private var _binding: VB? = null
+    val binding:VB get() = _binding!!
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+        _binding = inflateBindingWithGeneric(layoutInflater)
+        return binding.root
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+//
+//    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+//        if(rootView==null){
+//            rootView = inflater.inflate(getLayoutResources(),container,false)
+//        }
+//        return  rootView
+//    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initView()
 
